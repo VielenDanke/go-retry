@@ -63,6 +63,8 @@ func NewWithTLS(opts ...Option) *http.Client {
 func New(opts ...Option) *http.Client {
 	tr := &http.Transport{
 		ForceAttemptHTTP2:     true,
+		MaxIdleConns:          100,
+		IdleConnTimeout:       90 * time.Second,
 		ExpectContinueTimeout: 1 * time.Second,
 	}
 	cli := &http.Client{Transport: tr}

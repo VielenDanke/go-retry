@@ -7,14 +7,6 @@ import (
 
 type Option func(dialer *net.Dialer)
 
-func New(opts ...Option) *net.Dialer {
-	d := &net.Dialer{}
-	for _, v := range opts {
-		v(d)
-	}
-	return d
-}
-
 func SetTimeout(timeout time.Duration) Option {
 	return func(dialer *net.Dialer) {
 		dialer.Timeout = timeout
@@ -25,4 +17,12 @@ func SetKeepAliveProbe(keepAlive time.Duration) Option {
 	return func(dialer *net.Dialer) {
 		dialer.KeepAlive = keepAlive
 	}
+}
+
+func New(opts ...Option) *net.Dialer {
+	d := &net.Dialer{}
+	for _, v := range opts {
+		v(d)
+	}
+	return d
 }
